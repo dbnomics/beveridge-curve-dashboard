@@ -1,4 +1,3 @@
-# data_loader.py
 import pandas as pd
 from dbnomics import fetch_series
 
