@@ -8,6 +8,11 @@ authors = [
 dependencies = [
     "pandas>=2.2.0",
     "matplotlib>=3.9.0",
+    "dbnomics>=1.2.5",
+    "streamlit>=1.36.0",
+    "plotly-express",
+    "plotly>=5.22.0",
+    "importlib>=1.0.4",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
