@@ -28,8 +28,6 @@ charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via streamlit
-colorama==0.4.6
-    # via click
 contourpy==1.2.1
     # via matplotlib
 cycler==0.12.1
@@ -52,8 +50,6 @@ idna==3.7
     # via anyio
     # via httpx
     # via requests
-importlib==1.0.4
-    # via beveridge-curve
 jinja2==3.1.4
     # via altair
     # via pydeck
