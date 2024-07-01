@@ -3,8 +3,7 @@ import importlib.resources
 import streamlit as st
 from PIL import Image
 
-from . import charts_creator as cc
-from . import data_loader as dl
+from beveridge_curve import charts_creator, data_loader
 
 
 def main():
@@ -75,7 +74,7 @@ def main():
         )
 
         # Initialiser les données pour obtenir la plage de dates complète
-        df_fr, df_us, df_ger, df_eu = dl.prepare_data()
+        df_fr, df_us, df_ger, df_eu = data_loader.prepare_data()
 
         # Trouver les dates minimum et maximum parmi les DataFrames
         min_date = min(
@@ -101,26 +100,26 @@ def main():
         )
 
         if st.button("Enter"):
-            df_fr, df_us, df_ger, df_eu = dl.prepare_data(
+            df_fr, df_us, df_ger, df_eu = data_loader.prepare_data(
                 start_date=start_date, end_date=end_date
             )
 
             # Afficher le graphique correspondant
             if country == "France":
                 st.subheader("Beveridge curve for France")
-                fig = cc.plot_beveridge_curve(df_fr, "France")
+                fig = charts_creator.plot_beveridge_curve(df_fr, "France")
                 st.plotly_chart(fig)
             elif country == "United States":
                 st.subheader("Beveridge curve for the United States")
-                fig = cc.plot_beveridge_curve(df_us, "United States")
+                fig = charts_creator.plot_beveridge_curve(df_us, "United States")
                 st.plotly_chart(fig)
             elif country == "Germany":
                 st.subheader("Beveridge curve for Germany")
-                fig = cc.plot_beveridge_curve(df_ger, "Germany")
+                fig = charts_creator.plot_beveridge_curve(df_ger, "Germany")
                 st.plotly_chart(fig)
             elif country == "Euro Area":
                 st.subheader("Beveridge curve for the Euro Area")
-                fig = cc.plot_beveridge_curve(df_eu, "Euro Area")
+                fig = charts_creator.plot_beveridge_curve(df_eu, "Euro Area")
                 st.plotly_chart(fig)
 
 
