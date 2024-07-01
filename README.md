@@ -7,7 +7,14 @@ Beveridge Curve = inverse relation between unemployment rate and job vacancy rat
 
 ## Prérequis 
 - Python 3.12 
-- Packages : dbnomics, plotly.express, pandas, numpy, PIL
+- Packages :\
+pandas>=2.2.0,\
+matplotlib>=3.9.0,\
+dbnomics>=1.2.5,\
+streamlit>=1.36.0,\
+plotly-express,\
+plotly>=5.22.0,\
+importlib>=1.0.4
 
 ## Etapes 
 1. Clone the project from GitHub to your preferred repository.
