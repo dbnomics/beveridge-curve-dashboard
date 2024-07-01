@@ -3,7 +3,7 @@ name = "beveridge-curve"
 version = "0.1.0"
 description = "Add your description here"
 authors = [
-    { name = "Juliette Bornier", email = "juliette.bornier.3110@gmail.com" }
+    { name = "Juliette Bornier", email = "juliette.bornier.3110@gmail.com" },
 ]
 dependencies = [
     "pandas>=2.2.0",
