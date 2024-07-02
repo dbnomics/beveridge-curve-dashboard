@@ -6,7 +6,7 @@ from PIL import Image
 from beveridge_curve import charts_creator, data_loader
 
 
-def main():
+def main() -> None:
     package_dir = importlib.resources.files("beveridge_curve")
     st.set_page_config(
         page_title="DBnomics Beveridge Curve",
