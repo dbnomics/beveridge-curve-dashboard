@@ -32,6 +32,7 @@ def main():
             caption="Beveridge Curve in theory",
             use_column_width=True,
             output_format="PNG",
+            width=200
         )
         st.write(
             "\n"

@@ -17,6 +17,7 @@ def load_unemployment_series():
     )
 
 
+
 def load_job_vacancy_series():
     job_vacancy_ger = fetch_series("Eurostat/jvs_q_nace2/Q.NSA.B-S.GE10.JOBRATE.DE")
     job_vacancy_us = fetch_series("BLS/jt/JTS000000000000000JOR")

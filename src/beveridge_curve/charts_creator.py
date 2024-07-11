@@ -37,3 +37,4 @@ def plot_beveridge_curve(df, country):
         )
     )
     return fig
+
