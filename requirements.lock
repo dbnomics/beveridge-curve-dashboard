@@ -143,6 +143,9 @@ statsmodels==0.14.2
     # via plotly-express
 streamlit==1.36.0
     # via beveridge-curve
+    # via streamlit-option-menu
+streamlit-option-menu==0.3.13
+    # via beveridge-curve
 tenacity==8.4.2
     # via dbnomics
     # via plotly
