@@ -1,13 +1,14 @@
 import importlib.resources
 
+import numpy as np
+import plotly.graph_objects as go
 import streamlit as st
-from PIL import Image
+from streamlit_option_menu import option_menu  # type: ignore
 
-from . import charts_creator as cc
-from . import data_loader as dl
+from beveridge_curve import charts_creator, data_loader
 
 
-def main():
+def main() -> None:
     package_dir = importlib.resources.files("beveridge_curve")
     st.set_page_config(
         page_title="DBnomics Beveridge Curve",
@@ -16,8 +17,41 @@ def main():
     st.image(str(package_dir / "images/dbnomics.svg"), width=300)
     st.title(":blue[Beveridge  Curve]")
 
-    tab1, tab2 = st.tabs(["Explanations", "Charts"])
-    with tab1:
+    def local_css(file_name):
+        with open(file_name) as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+    local_css(package_dir / "assets/styles.css")
+
+    st.markdown(
+        """
+        <style>
+        hr {
+            height: 1px;
+            border: none;
+            color: #333;
+            background-color: #333;
+            margin-top: 3px;
+            margin-bottom: 3px;
+        }
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown("---")
+
+    with st.sidebar:
+        selected = option_menu(
+            menu_title="Menu",
+            options=["Explanations", "Beveridge Curve", "Sources", "DBnomics"],
+            icons=["book", "bar-chart", "paperclip", "search"],
+            menu_icon=":",
+            default_index=0,
+        )
+
+    if selected == "Explanations":
         st.subheader(":blue[**What is Beveridge's Curve?**]")
         st.write(
             "\n"
@@ -26,14 +60,31 @@ def main():
             "In this essay, Beveridge describes the negative relationship between the job vacancy rate (the job advertisements by companies) and the unemployment rate.\n"
             "\n"
         )
-        beveridge_example = Image.open(package_dir / "images/beveridge_example.png")
-        st.image(
-            beveridge_example,
-            caption="Beveridge Curve in theory",
-            use_column_width=True,
-            output_format="PNG",
-            width=200
+
+        unemployment_rate = np.linspace(1, 12, 100)
+        vacancies = 15 * np.exp(-0.3 * unemployment_rate)
+
+        fig = go.Figure()
+
+        fig.add_trace(
+            go.Scatter(
+                x=unemployment_rate,
+                y=vacancies,
+                mode="lines",
+                line=dict(color="gold", width=2),
+                name="Beveridge Curve",
+            )
         )
+
+        fig.update_layout(
+            title="Beveridge Curve in Theory",
+            xaxis_title="Unemployment rate (%)",
+            yaxis_title="Job vacancy rate (in thousands)",
+            template="plotly_white",
+        )
+
+        st.plotly_chart(fig)
+
         st.write(
             "\n"
             "\n"
@@ -70,14 +121,12 @@ def main():
             "This is due to the explosion of involuntary unemployment. Indeed, in the United States, it can be observed that the Beveridge curve has changed shape over the last decade.\n"
         )
 
-    with tab2:
+    if selected == "Beveridge Curve":
         country = st.selectbox(
             "Select a country", ["France", "United States", "Germany", "Euro Area"]
         )
-
         # Initialiser les données pour obtenir la plage de dates complète
-        df_fr, df_us, df_ger, df_eu = dl.prepare_data()
-
+        df_fr, df_us, df_ger, df_eu = data_loader.prepare_data()
         # Trouver les dates minimum et maximum parmi les DataFrames
         min_date = min(
             df_fr["original_period"].min(),
@@ -91,7 +140,6 @@ def main():
             df_ger["original_period"].max(),
             df_eu["original_period"].max(),
         )
-
         # Sélection des dates avec un slider
         start_date, end_date = st.slider(
             "Select date range",
@@ -100,29 +148,54 @@ def main():
             value=(min_date.to_pydatetime(), max_date.to_pydatetime()),
             format="YYYY-MM",
         )
-
         if st.button("Enter"):
-            df_fr, df_us, df_ger, df_eu = dl.prepare_data(
+            df_fr, df_us, df_ger, df_eu = data_loader.prepare_data(
                 start_date=start_date, end_date=end_date
             )
-
             # Afficher le graphique correspondant
             if country == "France":
-                st.subheader("Beveridge curve for France")
-                fig = cc.plot_beveridge_curve(df_fr, "France")
+                fig = charts_creator.plot_beveridge_curve(df_fr, "France")
                 st.plotly_chart(fig)
             elif country == "United States":
-                st.subheader("Beveridge curve for the United States")
-                fig = cc.plot_beveridge_curve(df_us, "United States")
+                fig = charts_creator.plot_beveridge_curve(df_us, "United States")
                 st.plotly_chart(fig)
             elif country == "Germany":
-                st.subheader("Beveridge curve for Germany")
-                fig = cc.plot_beveridge_curve(df_ger, "Germany")
+                fig = charts_creator.plot_beveridge_curve(df_ger, "Germany")
                 st.plotly_chart(fig)
             elif country == "Euro Area":
-                st.subheader("Beveridge curve for the Euro Area")
-                fig = cc.plot_beveridge_curve(df_eu, "Euro Area")
+                fig = charts_creator.plot_beveridge_curve(df_eu, "Euro Area")
                 st.plotly_chart(fig)
+
+    if selected == "Sources":
+        st.write("Check our [Macroeconomic outlook](https://www.cepremap.fr/depot/2024/07/Macroeconomic-outlook-04-july-2024.pdf) updated every month, which presents international macroeconomic perspectives with data available on DBnomics.")
+
+        st.write(
+            "**France:**\n"
+            "- Unemployment Rate : [link](https://db.nomics.world/INSEE/CHOMAGE-TRIM-NATIONAL/T.CTTXC.TAUX.FM.0.00-.POURCENT.CVS.FALSE?tab=chart)\n"
+            "- Job Vacancy Rate: [link](https://db.nomics.world/Eurostat/jvs_q_nace2/Q.NSA.B-S.GE10.JOBRATE.FR?tab=chart)\n"
+        )
+
+        st.write(
+            "**Germany:**\n"
+            "- Unemployment Rate : [link](https://db.nomics.world/DESTATIS/81000BV001/DG.BV4SB.ERW089?tab=chart)\n"
+            "- Job Vacancy Rate: [link](https://db.nomics.world/Eurostat/jvs_q_nace2/Q.NSA.B-S.GE10.JOBRATE.DE?tab=chart)\n"       
+        )
+
+        st.write(
+            "**United States:**\n"
+            "- Unemployment Rate : [link](https://db.nomics.world/BLS/ln/LNS14000000)\n"
+            "- Job Vacancy Rate: [link](https://db.nomics.world/BLS/jt/JTS000000000000000JOR?tab=chart)\n"
+        )
+
+        st.write(
+            "**Euro Area:**\n"
+            "- Unemployment Rate : [link](https://db.nomics.world/OECD/MEI/EA20.LRHUTTTT.STSA.Q?tab=chart)\n"
+            "- Job Vacancy Rate: [link](https://db.nomics.world/Eurostat/jvs_q_nace2/Q.NSA.B-S.TOTAL.JOBRATE.EA20?tab=chart)\n"
+
+        )
+
+    if selected == "DBnomics":
+        st.write("Visit DBnomics by clicking [here](https://db.nomics.world)")
 
 
 if __name__ == "__main__":
