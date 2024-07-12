@@ -45,8 +45,8 @@ def main() -> None:
     with st.sidebar:
         selected = option_menu(
             menu_title="Menu",
-            options=["Explanations", "Beveridge Curve", "Sources", "DBnomics"],
-            icons=["book", "bar-chart", "paperclip", "search"],
+            options=["Explanations", "Beveridge Curve", "Sources"],
+            icons=["book", "bar-chart", "search"],
             menu_icon=":",
             default_index=0,
         )
@@ -167,35 +167,39 @@ def main() -> None:
                 st.plotly_chart(fig)
 
     if selected == "Sources":
-        st.write("Check our [Macroeconomic outlook](https://www.cepremap.fr/depot/2024/07/Macroeconomic-outlook-04-july-2024.pdf) updated every month, which presents international macroeconomic perspectives with data available on DBnomics.")
 
+        st.subheader("**Data**\n")
         st.write(
-            "**France:**\n"
-            "- Unemployment Rate : [link](https://db.nomics.world/INSEE/CHOMAGE-TRIM-NATIONAL/T.CTTXC.TAUX.FM.0.00-.POURCENT.CVS.FALSE?tab=chart)\n"
-            "- Job Vacancy Rate: [link](https://db.nomics.world/Eurostat/jvs_q_nace2/Q.NSA.B-S.GE10.JOBRATE.FR?tab=chart)\n"
+            "**France**\n"
+            "- [Unemployment Ratelink](https://db.nomics.world/INSEE/CHOMAGE-TRIM-NATIONAL/T.CTTXC.TAUX.FM.0.00-.POURCENT.CVS.FALSE?tab=chart)\n"
+            "- [Job Vacancy Rate](https://db.nomics.world/Eurostat/jvs_q_nace2/Q.NSA.B-S.GE10.JOBRATE.FR?tab=chart)\n"
         )
 
         st.write(
             "**Germany:**\n"
-            "- Unemployment Rate : [link](https://db.nomics.world/DESTATIS/81000BV001/DG.BV4SB.ERW089?tab=chart)\n"
-            "- Job Vacancy Rate: [link](https://db.nomics.world/Eurostat/jvs_q_nace2/Q.NSA.B-S.GE10.JOBRATE.DE?tab=chart)\n"       
+            "- [Unemployment Rate](https://db.nomics.world/DESTATIS/81000BV001/DG.BV4SB.ERW089?tab=chart)\n"
+            "- [Job Vacancy Rate](https://db.nomics.world/Eurostat/jvs_q_nace2/Q.NSA.B-S.GE10.JOBRATE.DE?tab=chart)\n"
         )
 
         st.write(
             "**United States:**\n"
-            "- Unemployment Rate : [link](https://db.nomics.world/BLS/ln/LNS14000000)\n"
-            "- Job Vacancy Rate: [link](https://db.nomics.world/BLS/jt/JTS000000000000000JOR?tab=chart)\n"
+            "- [Unemployment Rate](https://db.nomics.world/BLS/ln/LNS14000000)\n"
+            "- [Job Vacancy Rate](https://db.nomics.world/BLS/jt/JTS000000000000000JOR?tab=chart)\n"
         )
 
         st.write(
             "**Euro Area:**\n"
-            "- Unemployment Rate : [link](https://db.nomics.world/OECD/MEI/EA20.LRHUTTTT.STSA.Q?tab=chart)\n"
-            "- Job Vacancy Rate: [link](https://db.nomics.world/Eurostat/jvs_q_nace2/Q.NSA.B-S.TOTAL.JOBRATE.EA20?tab=chart)\n"
-
+            "- [Unemployment Rate](https://db.nomics.world/OECD/MEI/EA20.LRHUTTTT.STSA.Q?tab=chart)\n"
+            "- [Job Vacancy Rate](https://db.nomics.world/Eurostat/jvs_q_nace2/Q.NSA.B-S.TOTAL.JOBRATE.EA20?tab=chart)\n"
         )
 
-    if selected == "DBnomics":
-        st.write("Visit DBnomics by clicking [here](https://db.nomics.world)")
+        st.write(
+            "Check our [Macroeconomic outlook](https://www.cepremap.fr/depot/2024/07/Macroeconomic-outlook-04-july-2024.pdf) updated every month, which presents international macroeconomic perspectives with data available on DBnomics."
+        )
+        st.markdown("---")
+
+        st.write("[Source Code](https://github.com/dbnomics/beveridge-curve-dashboard)\n")
+        st.write("[DBnomics](https://db.nomics.world)\n")
 
 
 if __name__ == "__main__":
