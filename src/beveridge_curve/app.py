@@ -52,7 +52,7 @@ def main() -> None:
         )
 
     if selected == "Explanations":
-        st.subheader(":blue[**What is Beveridge's Curve?**]")
+        st.subheader(":blue[**What is the Beveridge Curve?**]")
         st.write(
             "\n"
             "The Beveridge curve is named after the publications of William Beveridge (1879-1963).\n"
@@ -92,14 +92,18 @@ def main() -> None:
             "**What is its usefulness for economists and policy choices?**\n"
             "\n"
             "\n"
-            'For economists, it allows the analysis of "frictional" unemployment.\n'
-            "This is short-term unemployment that occurs during the period needed to find a new job.\n"
+            "The Beveridge Curve tells economists and regulators about the labor market's health.\n"
+            "Different factors will have different impacts on the curve : structural changes, economic cycle and frictional unemployment.\n"
+            "Economic cycles (boom or recession) have an impact along the curve.\n"
+            "Structural changes (a deep and impactful change in the basic way a market function) cause the curve to shift.\n"
+            "Finally, differences between countries are due to differences in leglisation and in frictional unemployment.\n"
+            "Frictional unemployment is the short-term unemployment that occurs during the period needed to find a new job.\n"
             "It is different from cyclical unemployment (which occurs during a recession) and structural unemployment (due to structural changes).\n"
             "\n"
             "For a long time, the Walrasian model (neoclassical model) was the paradigm: the labor market was perfect.\n"
             'Thus, "frictional" unemployment could not exist: a vacant job was immediately filled by a new worker.\n'
             "However, unemployment is present and even very significant in our contemporary economies.\n"
-            "Frictional unemployment, therefore, explains a more or less significant part of unemployment.\n"
+            "Frictional unemployment, therefore, explains a significant part of unemployment.\n"
             "\n"
             "\n"
             "**Why is the job vacancy rate high when the unemployment rate is low?**\n"
@@ -114,11 +118,10 @@ def main() -> None:
             "The number of jobs created exceeds the labor supply, leading to an increase in the job vacancy rate.\n"
             "\n"
             "Therefore, during a recession, the unemployment rate increases, and the job vacancy rate decreases: the labor supply exceeds the labor demand.\n"
-            "Thus, it is not good for an economy to have both a high unemployment rate and a high number of job vacancies simultaneously.\n"
-            "This means that even when many positions are available and the workforce is available, unemployment remains high.\n"
             "\n"
-            'An expression has emerged: the Beveridge curve has become "drunk" in many countries in recent years.\n'
-            "This is due to the explosion of involuntary unemployment. Indeed, in the United States, it can be observed that the Beveridge curve has changed shape over the last decade.\n"
+            "So, accorgind to Beveridge, it is not possible to have both a high unemployment rate and a high vacancy rate at the same time.\n"
+            "This would mean that even when many positions are available and the workforce is available, unemployment remains high.\n"
+            "\n"
         )
 
     if selected == "Beveridge Curve":
@@ -167,7 +170,6 @@ def main() -> None:
                 st.plotly_chart(fig)
 
     if selected == "Sources":
-
         st.subheader("**Data**\n")
         st.write(
             "**France**\n"
@@ -198,7 +200,9 @@ def main() -> None:
         )
         st.markdown("---")
 
-        st.write("[Source Code](https://github.com/dbnomics/beveridge-curve-dashboard)\n")
+        st.write(
+            "[Source Code](https://github.com/dbnomics/beveridge-curve-dashboard)\n"
+        )
         st.write("[DBnomics](https://db.nomics.world)\n")
 
 
