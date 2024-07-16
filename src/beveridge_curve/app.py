@@ -57,7 +57,7 @@ def main() -> None:
             "\n"
             "The Beveridge curve is named after the publications of William Beveridge (1879-1963).\n"
             ' He was an English economist specializing in unemployment, prices, and wages. In 1944, his essay titled "*Full Employment in a Free Society*" was published.\n'
-            "In this essay, Beveridge describes the negative relationship between the job vacancy rate (the job advertisements by companies) and the unemployment rate.\n"
+            "In this essay, Beveridge describes the negative relationship between the job vacancy rate (job advertisements by companies) and the unemployment rate.\n"
             "\n"
         )
 
@@ -96,7 +96,7 @@ def main() -> None:
             "Different factors will have different impacts on the curve : structural changes, economic cycle and frictional unemployment.\n"
             "Economic cycles (boom or recession) have an impact along the curve.\n"
             "Structural changes (a deep and impactful change in the basic way a market function) cause the curve to shift.\n"
-            "Finally, differences between countries are due to differences in leglisation and in frictional unemployment.\n"
+            "Finally, differences between countries are due to differences in legislation and in frictional unemployment.\n"
             "Frictional unemployment is the short-term unemployment that occurs during the period needed to find a new job.\n"
             "It is different from cyclical unemployment (which occurs during a recession) and structural unemployment (due to structural changes).\n"
             "\n"
