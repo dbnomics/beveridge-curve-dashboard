@@ -40,13 +40,11 @@ def main() -> None:
         unsafe_allow_html=True,
     )
 
-    st.markdown("---")
-
     with st.sidebar:
         selected = option_menu(
             menu_title="Menu",
-            options=["Explanations", "Beveridge Curve", "Sources"],
-            icons=["book", "bar-chart", "search"],
+            options=["Explanations", "Beveridge Curve", "Dataset", "Sources"],
+            icons=["book", "bar-chart", "folder", "search"],
             menu_icon=":",
             default_index=0,
         )
@@ -128,9 +126,7 @@ def main() -> None:
         country = st.selectbox(
             "Select a country", ["France", "United States", "Germany", "Euro Area"]
         )
-        # Initialiser les données pour obtenir la plage de dates complète
         df_fr, df_us, df_ger, df_eu = data_loader.prepare_data()
-        # Trouver les dates minimum et maximum parmi les DataFrames
         min_date = min(
             df_fr["original_period"].min(),
             df_us["original_period"].min(),
@@ -143,7 +139,7 @@ def main() -> None:
             df_ger["original_period"].max(),
             df_eu["original_period"].max(),
         )
-        # Sélection des dates avec un slider
+
         start_date, end_date = st.slider(
             "Select date range",
             min_value=min_date.to_pydatetime(),
@@ -169,6 +165,17 @@ def main() -> None:
                 fig = charts_creator.plot_beveridge_curve(df_eu, "Euro Area")
                 st.plotly_chart(fig)
 
+    if selected == "Dataset":
+        df_fr, df_us, df_ger, df_eu = data_loader.prepare_data()
+        tab1, tab2, tab3, tab4 = st.tabs(["France :file_folder:", "United States :file_folder:", "Germany :file_folder:", "Euro Area :file_folder:"])
+        with tab1: 
+            st.write(df_fr)
+        with tab2: 
+            st.write(df_us)
+        with tab3: 
+            st.write(df_ger)
+        with tab4:
+            st.write(df_eu)
     if selected == "Sources":
         st.subheader("**Data**\n")
         st.write(
